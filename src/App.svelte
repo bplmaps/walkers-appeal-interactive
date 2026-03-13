@@ -9,7 +9,8 @@
     appState.activeAnnotation = annotation;
   }
 
-  const { pages, annotations } = parseManifest(manifest);
+  const trimmedManifest = { ...manifest, items: manifest.items.slice(0, 76) };
+  const { pages, annotations } = parseManifest(trimmedManifest);
   appState.pages = pages;
   appState.annotations = annotations;
 </script>
@@ -60,6 +61,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background: black;
   }
 
 </style>

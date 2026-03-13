@@ -8,6 +8,25 @@
   const IMG_MAX_W = 800;
   const IMG_MAX_H = 1200;
 
+  function patchPageFlipBackground(pf) {
+    const render = pf.getRender();
+    const canvas = containerEl.querySelector("canvas");
+    render.clear = function () {
+      const ctx = this.getContext();
+      ctx.fillStyle = "black";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    };
+
+    const pages = pf.getPageCollection().getPages();
+    if (pages.length > 0) {
+      const proto = Object.getPrototypeOf(pages[0]);
+      proto.drawLoader = function (ctx, pos, w, h) {
+        ctx.fillStyle = "black";
+        ctx.fillRect(pos.x, pos.y, w, h);
+      };
+    }
+  }
+
   let containerEl = $state(null);
   let pageFlip = $state(null);
   let bookRect = $state(null);
@@ -45,6 +64,7 @@
     });
 
     pf.loadFromImages(imageUrls);
+    patchPageFlipBackground(pf);
 
     pf.on("flip", (e) => {
       appState.currentPage = e.data;
@@ -111,10 +131,16 @@
     position: relative;
     width: 100%;
     height: 100%;
+    background: black;
   }
 
   .book-inner {
     width: 100%;
     height: 100%;
+    background: black;
+  }
+
+  .book-inner :global(.stf__parent) {
+    background: black;
   }
 </style>
