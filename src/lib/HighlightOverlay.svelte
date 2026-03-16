@@ -43,8 +43,8 @@
 <style>
   .highlight-overlay {
     position: absolute;
-    background: rgba(251, 191, 36, 0.25);
-    border: 3px solid rgba(251, 191, 36, 0.8);
+    background: rgba(251, 190, 36, 0.156);
+    border: 3px solid rgba(229, 29, 255, 0.884);
     border-radius: 4px;
     pointer-events: none;
     z-index: 100;

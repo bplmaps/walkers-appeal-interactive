@@ -1,5 +1,6 @@
 <script>
   import { appState } from "./state.svelte.js";
+  import manicule from "../assets/manicule.png";
 
   let { annotation, index, onclick } = $props();
 
@@ -24,7 +25,10 @@
   style="--float-delay: {index * 0.7}s; --enter-delay: {index * 0.12}s;"
   onclick={handleClick}
 >
-  <span class="bubble-page">p. {annotation.pageIndex + 1}</span>
+  <span class="bubble-page">
+    <img src={manicule} alt="" class="bubble-page-icon" />
+    <span class="bubble-page-text">p. {annotation.pageIndex + 1}</span>
+  </span>
   <span class="bubble-text">{truncatedText}</span>
 </button>
 
@@ -34,7 +38,7 @@
     flex-direction: column;
     gap: 6px;
     padding: 14px 18px;
-    background: rgba(255, 255, 255, 0.92);
+    background: #f5e9d7;
     backdrop-filter: blur(8px);
     border: 2px solid rgba(120, 120, 120, 0.2);
     border-radius: 20px;
@@ -65,6 +69,18 @@
   }
 
   .bubble-page {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .bubble-page-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
+
+  .bubble-page-text {
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
