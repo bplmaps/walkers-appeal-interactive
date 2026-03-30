@@ -54,15 +54,20 @@ export function parseManifest(manifest) {
   return { pages, annotations };
 }
 
+/** Same-origin path prefix; Netlify rewrites to iiif.digitalcommonwealth.org (see netlify.toml). */
+const IIIF_PROXY_PREFIX = "/_iiif";
+
 /**
  * Build a IIIF Image API 2.x URL for a given service endpoint.
+ * Uses a same-origin path so Edge does not treat loads as public-site → local-network (LNA).
  * @param {string} serviceId - The image service @id
  * @param {number} maxWidth - Maximum width constraint
  * @param {number} maxHeight - Maximum height constraint
  * @returns {string}
  */
 export function getImageUrl(serviceId, maxWidth, maxHeight) {
-  return `${serviceId}/full/!${maxWidth},${maxHeight}/0/default.jpg`;
+  const path = new URL(serviceId).pathname.replace(/\/$/, "");
+  return `${IIIF_PROXY_PREFIX}${path}/full/!${maxWidth},${maxHeight}/0/default.jpg`;
 }
 
 /**

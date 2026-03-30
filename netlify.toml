@@ -1,0 +1,7 @@
+# Same-origin proxy so the browser never opens a direct connection from the public
+# site to a host that may resolve to a private address (Edge Local Network Access).
+[[redirects]]
+  from = "/_iiif/*"
+  to = "https://iiif.digitalcommonwealth.org/:splat"
+  status = 200
+  force = true
